@@ -90,15 +90,6 @@ button:hover {
   font-size: 14px;
 }
 
-a-entity {
-  position: absolute;
-  z-index: 9999;
-}
-
-a-scene {
-  z-index: 1;
-}
-
 /* #container {
   display: none;
 }

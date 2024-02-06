@@ -110,59 +110,54 @@ function getRandomProduct() {
     // Khởi tạo vật phẩm random
 let selectedProduct = getRandomProduct();
 
-  // Hàm update ra ngẫu nhiên vật phẩm nếu nhiều lượt chơi
-function updateSelectedProduct() {
-    selectedProduct = getRandomProduct();
-    console.log(selectedProduct)
-    performProductActions();
-}
-
 let timeoutId; // Biến để lưu trữ ID của setTimeout
 
 // render ra vật phẩm nếu còn
 function performProductActions() {
+    console.log(document.getElementById('myEntity'))
     var sceneEl = document.querySelector('a-scene');
+
     const entityElement = document.createElement('a-entity');
     entityElement.setAttribute('id', "myEntity")
     entityElement.setAttribute('cursor', "rayOrigin: mouse")
     entityElement.setAttribute('look-at', "[gps-new-camera]")
-    entityElement.setAttribute('scale', "50 50 50")
+    entityElement.setAttribute('scale', "100 100 100")
     entityElement.setAttribute('animation__rotation', "property: rotation; to: 0 360 0; loop: true; dur: 5000")
     entityElement.setAttribute('markerhandler', "")
     const randomCoordinates = getRandomCoordinate()
     entityElement.setAttribute('gps-new-entity-place', `latitude: ${randomCoordinates.latitude}; longitude: ${randomCoordinates.longitude}`)
     const randomPosition = getRandomPosition()
-    entityElement.setAttribute('position', '0 0 0')
+    entityElement.setAttribute('position', randomPosition)
+
     entityElement.setAttribute('visible', false);
 
     sceneEl.appendChild(entityElement)
 
-    clearTimeout(timeoutId);
     
     const randomNumber = Math.floor(Math.random() * (10 - 5 + 1)) + 5;
+    clearTimeout(timeoutId);
 
     timeoutId = setTimeout(() => {
         entityElement.setAttribute('visible', true);
     }, randomNumber * 1000)
-    // entityElement.setAttribute('opacity', 0)
-
-    // clearTimeout(timeoutId);
-
-
-    // timeoutId = setTimeout(() => {
-    //     entityElement.setAttribute('opacity', 1);
-    // }, 1 * 1000);
 
     if (selectedProduct.quantity > 0) {
         selectedProduct.quantity--;
     }
     if (entityElement) {
-        if(entityElement.attributes['id'] === 'noi') {
-            entityElement.setAttribute('scale', '500 500 500')
-        }
+        // if(entityElement.attributes['id'] === 'noi') {
+        //     entityElement.setAttribute('scale', '30 30 30')
+        // }
         entityElement.setAttribute('gltf-model', selectedProduct.image);
 
     }
+}
+
+  // Hàm update ra ngẫu nhiên vật phẩm nếu nhiều lượt chơi
+function updateSelectedProduct() {
+    selectedProduct = getRandomProduct();
+    console.log(selectedProduct)
+    performProductActions();
 }
 
   // Sự kiện click
