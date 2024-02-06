@@ -79,15 +79,6 @@ AFRAME.registerComponent('locationfinder', {
     }
 })
   
-//   AFRAME.registerComponent('foo', {
-//     events: {
-//       click: function (evt) {
-//         console.log('This entity was clicked!');
-//       }
-//     }
-//   });
-  
-
 // Vật phẩm
 
     // Sản phẩm
@@ -114,10 +105,9 @@ let timeoutId; // Biến để lưu trữ ID của setTimeout
 // render ra vật phẩm nếu còn
 function performProductActions() {
     var sceneEl = document.querySelector('a-scene');
-
     const entityElement = document.createElement('a-entity');
+
     entityElement.setAttribute('id', "myEntity")
-    entityElement.setAttribute('cursor', "rayOrigin: mouse")
     entityElement.setAttribute('look-at', "[gps-new-camera]")
     if(selectedProduct.image === '#nuoc-lau-kinh') {
         entityElement.setAttribute('scale', "9 9 9")
@@ -125,13 +115,13 @@ function performProductActions() {
         entityElement.setAttribute('scale', "20 20 20")
     }
     entityElement.setAttribute('animation__rotation', "property: rotation; to: 0 0 360; loop: true; dur: 5000")
-    entityElement.setAttribute('markerhandler', "")
+    entityElement.setAttribute('markerhandler', '')
     const randomCoordinates = getRandomCoordinate()
     entityElement.setAttribute('gps-new-entity-place', `latitude: ${randomCoordinates.latitude}; longitude: ${randomCoordinates.longitude}}`)
     const randomPosition = getRandomPosition()
     entityElement.setAttribute('position', randomPosition)
     entityElement.setAttribute('rotation', '90 0 0')
-
+    entityElement.setAttribute('class', 'clickable')
     entityElement.setAttribute('visible', false);
 
     sceneEl.appendChild(entityElement)
@@ -150,6 +140,10 @@ function performProductActions() {
     if (entityElement) {
         entityElement.setAttribute('gltf-model', selectedProduct.image);
     }
+
+    // for (const attribute of entityElement.attributes) {
+    //    console.log(attribute)
+    // }   
 }
 
   // Hàm update ra ngẫu nhiên vật phẩm nếu nhiều lượt chơi
@@ -161,14 +155,18 @@ function updateSelectedProduct() {
   // Sự kiện click
   AFRAME.registerComponent('markerhandler', {
     init: function () {
-      this.el.addEventListener('click', () => {
-        if (selectedProduct.quantity > 0) {
-            showResultModal(selectedProduct);
-        } else {
-            showResultModal(null);
-        }
-    });
-  }})
+        this.el.addEventListener('click', () => {
+            if (selectedProduct.quantity > 0) {
+                showResultModal(selectedProduct);
+            } else {
+                showResultModal(null);
+            }
+        });
+        // entityElement.addEventListener('click', () => {
+        //     console.log('click')
+        // })
+        // entityElement.emit('click');
+    }})
 
 
    // Khởi tạo 
