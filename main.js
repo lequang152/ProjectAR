@@ -114,20 +114,19 @@ let timeoutId; // Biến để lưu trữ ID của setTimeout
 
 // render ra vật phẩm nếu còn
 function performProductActions() {
-    console.log(document.getElementById('myEntity'))
     var sceneEl = document.querySelector('a-scene');
 
     const entityElement = document.createElement('a-entity');
     entityElement.setAttribute('id', "myEntity")
     entityElement.setAttribute('cursor', "rayOrigin: mouse")
     entityElement.setAttribute('look-at', "[gps-new-camera]")
-    entityElement.setAttribute('scale', "100 100 100")
+    entityElement.setAttribute('scale', "0.6 0.6 0.6")
     entityElement.setAttribute('animation__rotation', "property: rotation; to: 0 360 0; loop: true; dur: 5000")
     entityElement.setAttribute('markerhandler', "")
     const randomCoordinates = getRandomCoordinate()
     entityElement.setAttribute('gps-new-entity-place', `latitude: ${randomCoordinates.latitude}; longitude: ${randomCoordinates.longitude}`)
     const randomPosition = getRandomPosition()
-    entityElement.setAttribute('position', randomPosition)
+    entityElement.setAttribute('position', '0 0 0')
 
     entityElement.setAttribute('visible', false);
 
@@ -139,7 +138,7 @@ function performProductActions() {
 
     timeoutId = setTimeout(() => {
         entityElement.setAttribute('visible', true);
-    }, randomNumber * 1000)
+    }, 1 * 1000)
 
     if (selectedProduct.quantity > 0) {
         selectedProduct.quantity--;
@@ -156,7 +155,6 @@ function performProductActions() {
   // Hàm update ra ngẫu nhiên vật phẩm nếu nhiều lượt chơi
 function updateSelectedProduct() {
     selectedProduct = getRandomProduct();
-    console.log(selectedProduct)
     performProductActions();
 }
 
