@@ -145,9 +145,9 @@ function performProductActions() {
         selectedProduct.quantity--;
     }
     if (entityElement) {
-        // if(entityElement.attributes['id'] === 'noi') {
-        //     entityElement.setAttribute('scale', '30 30 30')
-        // }
+        if(entityElement.attributes['id'] === 'noi') {
+            entityElement.setAttribute('scale', '500 500 500')
+        }
         entityElement.setAttribute('gltf-model', selectedProduct.image);
 
     }
