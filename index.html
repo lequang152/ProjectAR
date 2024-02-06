@@ -29,6 +29,9 @@
           r-mode-ui='enabled: false' 
           arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' 
           renderer='antialias: true; alpha: true'
+          cursor="rayOrigin: mouse"
+          raycaster="objects: .clickable"
+
       >
         <a-assets>
           <!-- <img class="raycastable" id="noi" src="./public/assets/img/noi.jpg">
@@ -41,8 +44,6 @@
           <a-asset-item class="raycastable" id="tay-xoong-noi" src="public/assets/model/GheVP.glb"></a-asset-item>
         </a-assets>
         <a-camera 
-        
-          raycaster="objects: [data-raycastable]"
           look-controls-enabled='false' 
           locationfinder 
           gps-new-camera="" 

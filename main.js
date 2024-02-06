@@ -117,7 +117,6 @@ function performProductActions() {
 
     const entityElement = document.createElement('a-entity');
     entityElement.setAttribute('id', "myEntity")
-    entityElement.setAttribute('cursor', "rayOrigin: mouse")
     entityElement.setAttribute('look-at', "[gps-new-camera]")
     if(selectedProduct.image === '#nuoc-lau-kinh') {
         entityElement.setAttribute('scale', "9 9 9")
@@ -131,6 +130,7 @@ function performProductActions() {
     const randomPosition = getRandomPosition()
     entityElement.setAttribute('position', randomPosition)
     entityElement.setAttribute('rotation', '90 0 0')
+    entityElement.setAttribute('class', 'clickable')
 
     entityElement.setAttribute('visible', false);
 
