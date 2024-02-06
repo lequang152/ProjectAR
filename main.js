@@ -18,8 +18,8 @@
 
  // Tọa độ địa điểm chơi, config theo gg maps
 const organizationLocation = {
-    latitude: 21.0436096,
-    longitude: 105.8668544
+    latitude: 21.5007917,
+    longitude: 105.867941
 }
 
 
@@ -61,7 +61,6 @@ function calculateHaversineDistance(lat1, lon1, lat2, lon2) {
 
   
 // Đặt tọa độ người chơi theo GPS của máy
-  
 AFRAME.registerComponent('locationfinder', {
     init: function() {
         navigator.geolocation.getCurrentPosition(function(location) {
@@ -120,35 +119,36 @@ function performProductActions() {
     entityElement.setAttribute('id', "myEntity")
     entityElement.setAttribute('cursor', "rayOrigin: mouse")
     entityElement.setAttribute('look-at', "[gps-new-camera]")
-    entityElement.setAttribute('scale', "0.6 0.6 0.6")
-    entityElement.setAttribute('animation__rotation', "property: rotation; to: 0 360 0; loop: true; dur: 5000")
+    if(selectedProduct.image === '#nuoc-lau-kinh') {
+        entityElement.setAttribute('scale', "9 9 9")
+    } else {
+        entityElement.setAttribute('scale', "20 20 20")
+    }
+    entityElement.setAttribute('animation__rotation', "property: rotation; to: 0 0 360; loop: true; dur: 5000")
     entityElement.setAttribute('markerhandler', "")
     const randomCoordinates = getRandomCoordinate()
-    entityElement.setAttribute('gps-new-entity-place', `latitude: ${randomCoordinates.latitude}; longitude: ${randomCoordinates.longitude}`)
+    entityElement.setAttribute('gps-new-entity-place', `latitude: ${randomCoordinates.latitude}; longitude: ${randomCoordinates.longitude}}`)
     const randomPosition = getRandomPosition()
-    entityElement.setAttribute('position', '0 0 0')
+    entityElement.setAttribute('position', randomPosition)
+    entityElement.setAttribute('rotation', '90 0 0')
 
     entityElement.setAttribute('visible', false);
 
     sceneEl.appendChild(entityElement)
 
     
-    const randomNumber = Math.floor(Math.random() * (10 - 5 + 1)) + 5;
+    const randomNumber = Math.floor(Math.random() * 5) + 1;
     clearTimeout(timeoutId);
 
     timeoutId = setTimeout(() => {
         entityElement.setAttribute('visible', true);
-    }, 1 * 1000)
+    }, randomNumber * 1000)
 
     if (selectedProduct.quantity > 0) {
         selectedProduct.quantity--;
     }
     if (entityElement) {
-        if(entityElement.attributes['id'] === 'noi') {
-            entityElement.setAttribute('scale', '500 500 500')
-        }
         entityElement.setAttribute('gltf-model', selectedProduct.image);
-
     }
 }
 
@@ -240,10 +240,10 @@ function showResultModal(selectedProduct) {
 // Hàm random tọa độ vật phẩm
 function getRandomCoordinate() {
     const usePositiveRandomLatitude = Math.random() < 0.5;
-    const randomOffsetLatitude = (Math.random() * 0.002) + (usePositiveRandomLatitude ? 0.001 : -0.003);
+    const randomOffsetLatitude = (Math.random() * 0.0009) + (usePositiveRandomLatitude ? 0.0001 : -0.001)
 
     const usePositiveRandomLongitude = Math.random() < 0.5;
-    const randomOffsetLongitude = (Math.random() * 0.002) + (usePositiveRandomLongitude ? 0.001 : -0.003);
+    const randomOffsetLongitude = (Math.random() * 0.0009) + (usePositiveRandomLongitude ? 0.0001 : -0.001);
 
     const currentLatitude = currentLocation.latitude; 
     const currentLongitude = currentLocation.longitude; 
@@ -266,7 +266,7 @@ function getRandomCoordinate() {
 // hàm random vị trí ngẫu nhiên
 function getRandomPosition() {
     const randomX = 0 
-    const randomY = Math.floor(Math.random() * 801) - 400; 
+    const randomY = Math.floor(Math.random() * 181) - 90; // Random từ -90 đến 90
     const randomZ = 0  
 
     // // const entity = document.getElementById('myEntity');
